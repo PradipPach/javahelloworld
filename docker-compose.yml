@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  java-hello:
+    container_name: java-hello
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/${GITHUB_REPOSITORY:-pradippach/javahelloworld}:latest
+    restart: unless-stopped
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "java", "-cp", "/app", "com.example.HelloWorld"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - ./target:/app
